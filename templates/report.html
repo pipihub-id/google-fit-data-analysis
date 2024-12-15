@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Fit Data Analysis</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f6f9;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Header */
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            font-size: 32px;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Form Styling */
+        form {
+            text-align: center;
+            margin: 20px 0;
+            padding: 10px;
+        }
+
+        label {
+            font-size: 18px;
+            margin-right: 10px;
+        }
+
+        input {
+            padding: 10px 15px;
+            font-size: 16px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            padding: 12px 18px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        button[type="submit"] {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .download-container a button {
+            background-color: #28A745;
+        }
+
+        .download-container a button:hover {
+            background-color: #1e7e34;
+        }
+
+        /* Container for Plots */
+        .plot-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            justify-items: center;
+            padding: 20px;
+        }
+
+        .plot-item {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            padding: 20px;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .plot-item img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            max-height: 300px;
+            object-fit: cover;
+        }
+
+        .plot-item h3 {
+            margin: 15px 0;
+            font-size: 20px;
+            color: #007BFF;
+        }
+
+        /* Download Button */
+        .download-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .download-container a button {
+            padding: 14px 25px;
+            font-size: 18px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 1024px) {
+            .plot-container {
+                grid-template-columns: 1fr;
+            }
+
+            .plot-item h3 {
+                font-size: 18px;
+            }
+
+            button {
+                font-size: 14px;
+                padding: 10px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Google Fit Data Analysis</h1>
+    <form method="POST" action="/">
+        <label for="year">Filter Berdasarkan Tahun:</label>
+        <input type="number" name="year" id="year" placeholder="Contoh: 2020" value="{{ year if year != 'all' else '' }}">
+        <button type="submit">Tampilkan</button>
+        <button type="submit" name="year" value="all">Semua Data</button>
+    </form>
+    <div class="plot-container">
+        <div class="plot-item">
+            <h3>Jumlah Menit Bergerak per Bulan</h3>
+            <img src="{{ plots[0] }}" alt="Plot 1">
+        </div>
+        <div class="plot-item">
+            <h3>Jumlah Langkah per Hari</h3>
+            <img src="{{ plots[1] }}" alt="Plot 2">
+        </div>
+        <div class="plot-item">
+            <h3>Kontribusi Aktivitas</h3>
+            <img src="{{ plots[2] }}" alt="Plot 3">
+        </div>
+        <div class="plot-item">
+            <h3>Detak Jantung Rata-rata</h3>
+            <img src="{{ plots[3] }}" alt="Plot 4">
+        </div>
+    </div>
+    <div class="download-container">
+        <a href="/download-pdf">
+            <button>Download Laporan PDF</button>
+        </a>
+    </div>
+</body>
+</html>
